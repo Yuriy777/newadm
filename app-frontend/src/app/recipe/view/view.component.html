@@ -1,0 +1,215 @@
+<div class="screen-dynamic" style="display:none">
+
+    <div class="screen-dynamic_inner">
+        <div>
+
+            <img class="publisher-logo" src="" alt="#">
+
+            <div class="publisher-loader">
+                <div class="publisher-loader_inner">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="screen-static">
+    <div class="screen-static_inner">
+        <div class="shopping-list">
+            <div class="overlay"></div>
+            <div class="top-block">
+                <div class="wrapper-tv">
+                    <div class="wrap-tv">
+                        <a href="{{data?.company.url}}" target="_blank">
+                            <img class="recipe-logo" src="{{data?.image}}" alt="{{data?.name_en}}">
+                        </a>
+                    </div>
+                    <div class="bottom-block-tv">
+                        <div class="center-block-tv">
+                            <img src="js/ng/assets/images/tv-003.png" alt="tv">
+                        </div>
+                        <span></span>
+                    </div>
+                    <section class="recipe-title recipe-title-tv"
+                             [ngStyle]="{'background-color': data.company.header_color}">
+                        <div class="recipe-title_inner recipe-title_inner-tv">
+                            <div class="wr-button-l">
+                                <button id="btn-der" (click)="triggerShowDepartment()"
+                                        [ngClass]="{btnshw: state == 'active'}"></button>
+                            </div>
+                            <div class="question-2">
+                                <div class="question-text">
+                                    {{getTranslation('key_10')}}
+                                </div>
+                                <div class="number-of-dinners count-desc">
+                                    <span class="plus" (click)="addAmount()">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="val">{{people_amount}}</span>
+                                    <button [disabled]="disabledButtonMin" class="min" (click)="reduceAmount()">
+                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="ingredients-list">
+                <ul *ngFor="let categories of data.ingredients">
+                    <li class="shuk-category shuk-cat">
+                        <span [@departmentState]="state" class="category-name">
+                            <span>{{categories.category.name}}</span>
+                        </span>
+                        <ul class="list-ingredient-t">
+                            <li class="ingredient-item ingr-item" *ngFor="let ingredients of categories.ingredients"
+                                [ngClass]="{removemode: ingredients.hide || false}">
+                                <div class="flex-line">
+                                    <div class="image" (click)="showModalIngredient($event, content, ingredients.ingredient)">
+                                        <img src="{{ingredients.ingredient.image}}" class="item-img">
+                                    </div>
+                                    <div class="popup line-content">
+
+                                        <div class="ingredient-info"
+                                             (click)="showModalIngredient($event, content, ingredients.ingredient)">
+                                            <span>{{ingredients.ingredient.name}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-btn">
+                                        <span class="coupon-img"
+                                              (click)="showModalIngredient($event, content, ingredients.ingredient)"
+                                              *ngIf="ingredients.ingredient.activeCoupon.length !== 0">
+                                            <img src="js/ng/assets/images/coupon.svg" alt="coupon">
+                                        </span>
+                                        <span class="vid-img" style="display: none">
+                                            <img src="js/ng/assets/images/hat.svg" alt="info">
+                                        </span>
+                                    </div>
+                                    <div>
+
+                                    </div>
+                                    <div class="quant">
+                                        <span>{{ingredients.ingredient.count}}</span>
+                                    </div>
+                                    <div class="remove-btn" (click)="ingredients.hide = !ingredients.hide;">
+                                    <span class="remove-icon"
+                                          [ngStyle]="{'background-color': data.company.header_color}">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </span>
+                                        <span class="back-bt back-img"
+                                              [ngStyle]="{'background-color': data.company.header_color}">
+                                        <span class="circle-rt"></span>
+                                    </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section class="save-list">
+                <a class="btn-icon " id="btn-fsend"  (click)="showModalSend($event, send_list)" [ngStyle]="{'background-color': data.company.header_color}">
+                    <span>
+                        <img src="js/ng/assets/images/love-letter.svg">
+                    </span>
+                </a>
+                <span id="whatsApp" class="btn-icon " (click)="sendListToWhatsapp($event)" [ngStyle]="{'background-color': data.company.header_color}">
+                    <span>
+                        <img src="js/ng/assets/images/whatsapp.svg">
+                    </span>
+                </span>
+                <span id="shareBt" target="_blank" class="btn-icon" (click)="sendListToFacebook($event)"
+                   [ngStyle]="{'background-color': data.company.header_color}">
+                    <span>
+                        <img src="js/ng/assets/images/facebook.svg">
+                    </span>
+                </span>
+            </section>
+        </div>
+    </div>
+</div>
+
+<ng-template #coupon let-c="close" let-d="dismiss" >
+
+    <div  class="posr popuptext coupon-modal" >
+        <div class="close-btn reg" (click)="closeModalCoupon()">
+        </div>
+
+        <div class="popup-body">
+            <img src="{{couponImg}}" class="brand-image">
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #content let-c="close" let-d="dismiss" >
+
+    <div id="regular-popup" class="posr popuptext" >
+        <div class="close-btn reg" (click)="closeModalIngredient()">
+        </div>
+        <div class="popup-header" style="text-align: center">{{ingredientName}}</div>
+        <div class="popup-body">
+            <img src="{{imgUrl}}" class="brand-image">
+        </div>
+        <div class="brand_name"></div>
+        <p *ngIf="showCoupon">
+            <button class="coupun-btn mb20" style="color: rgb(255, 255, 255);"
+                    (click)="showModalCoupon($event, coupon)"
+                    [ngStyle]="{'background-color': data.company.header_color}">
+                {{getTranslation('key_9')}}
+        </button>
+        </p>
+        <button id="reg-btn" class="back-to-list" style="color: rgb(255, 255, 255);" [ngStyle]="{'background-color': data.company.header_color}" (click)="closeModalIngredient()">
+            {{getTranslation('key_1')}}
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #send_list let-c="close" let-d="dismiss" >
+
+    <div class="recipe-save">
+        <div class="recipe-save_inner close-modal">
+            <div class="header-bl">
+                <div class="c-btn">
+                    <div class="close-btn bt" (click)="closeModalSendList()"></div>
+                </div>
+                <p class="popup-titlef">
+                    {{getTranslation('key_3')}}
+                </p>
+            </div>
+            <div class="container-modal">
+                <form [formGroup]="form"
+                      (ngSubmit)="onSubmit(form)">
+                    <div class="inp-wrap">
+                        <input type="email" name="email" formControlName="email" placeholder="{{getTranslation('key_4')}}">
+                        <img src="js/ng/assets/images/envelope.svg" class="icons-inp" alt="">
+                    </div>
+                    <p class="or">
+                        - {{getTranslation('key_5')}} -
+                    </p>
+                    <div class="inp-wrap">
+                        <input type="tel" name="tel" formControlName="phone"  placeholder="{{getTranslation('key_6')}}">
+                        <img src="js/ng/assets/images/smartphone.svg" class="icons-inp tel-inp" alt="">
+                    </div>
+                    <span *ngIf="!form.hasError('customValidation') && submitPending" class="error">Enter your email or phone</span>
+                    <small>
+                        {{getTranslation('key_7')}}</small>
+                    <div>
+                        <button [disabled]="!form.hasError('customValidation')" class="submit-list"  [ngStyle]="{'background-color': data.company.header_color}">
+                            {{getTranslation('key_8')}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<template ngbModalContainer></template>
+
+
+

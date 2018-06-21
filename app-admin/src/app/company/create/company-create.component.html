@@ -1,0 +1,226 @@
+<div class="table-wrapper">
+    <div class="wrap-header"></div>
+    <div class="wrap-tmain">
+        <div class="card">
+            <div class="card-header card-success card-inverse">
+                <span class="card-title">Create company</span>
+            </div>
+            <div class="card-block">
+                <form novalidate [ngClass]="{'form-error':submitPending }" [formGroup]="form"
+                      (ngSubmit)="onSubmit(form)">
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputNameCompany">Name
+                            company</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" formControlName="name_en" id="inputNameCompany"
+                                   placeholder="Name company" type="text">
+                            <p class="error_message" *ngIf="form.get('name_en').hasError('required') && submitPending">
+                                Name company is required</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('name_en')">{{
+                                getTextErrorByFormField('name_en') }}</p>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputNameCompanyhe">Name company
+                            "Heb"</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="inputNameCompanyhe" formControlName="name_he"
+                                   placeholder="Name company 'Heb'" type="text">
+                            <p class="error_message" *ngIf="isExistErrorByFormField('name_he')">{{
+                                getTextErrorByFormField('name_he') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputNameCompanyes">Name company
+                            'Es'</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="inputNameCompanyes" formControlName="name_es"
+                                   placeholder="Name company 'Es'" type="text">
+                            <p class="error_message" *ngIf="isExistErrorByFormField('name_es')">{{
+                                getTextErrorByFormField('name_es') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputLinktosite">Company site
+                            URL</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="inputLinktosite"
+                                   formControlName="company_site_url" placeholder="https://site.name">
+                            <p class="error_message"
+                               *ngIf="form.get('company_site_url').hasError('required') && submitPending">Url company is
+                                required</p>
+                            <p class="error_message"
+                               *ngIf="form.get('company_site_url').hasError('pattern') && submitPending">Url company
+                                must be https://</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('company_site_url')">{{
+                                getTextErrorByFormField('company_site_url') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputCompanycolor">Company
+                            color</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="inputCompanycolor" formControlName="color_1"
+                                   placeholder="#ffffff">
+                            <p class="error_message" *ngIf="form.get('color_1').hasError('required') && submitPending">
+                                Color is required</p>
+                            <p class="error_message" *ngIf="form.get('color_1').hasError('pattern') && submitPending">
+                                Color must be #ff0000</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('color_1')">{{
+                                getTextErrorByFormField('color_1') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputButtoncolor">Button
+                            color</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="inputButtoncolor" formControlName="color_2"
+                                   placeholder="#ffffff">
+                            <p class="error_message" *ngIf="form.get('color_2').hasError('required') && submitPending">
+                                Color is required</p>
+                            <p class="error_message" *ngIf="form.get('color_2').hasError('pattern') && submitPending">
+                                Color must be #ff0000</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('color_2')">{{
+                                getTextErrorByFormField('color_2') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputButtonBackcolor">Button
+                            background color</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="inputButtonBackcolor" formControlName="color_3"
+                                   placeholder="#ffffff">
+                            <p class="error_message" *ngIf="form.get('color_3').hasError('required') && submitPending">
+                                Color is required</p>
+                            <p class="error_message" *ngIf="form.get('color_3').hasError('pattern') && submitPending">
+                                Color must be #ff0000</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('color_3')">{{
+                                getTextErrorByFormField('color_3') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputAlias">Alias</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="inputAlias" formControlName="alias"
+                                   placeholder="alias">
+                            <p class="error_message" *ngIf="form.get('alias').hasError('required') && submitPending">
+                                Alias is required</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('alias')">{{
+                                getTextErrorByFormField('alias') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="fileLogo">Logo</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="fileLogo" (change)="fileChangeEvent($event)"/>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="hidden" formControlName="logo">
+                                    <p class="error_message"
+                                       *ngIf="form.get('logo').hasError('required') && submitPending">
+                                        Logo is required</p>
+                                    <image-cropper
+                                        [imageChangedEvent]="imageChangedEvent"
+                                        [maintainAspectRatio]="true"
+                                        [aspectRatio]="1"
+                                        [resizeToWidth]="460"
+                                        format="png, jpeg"
+                                        (imageCropped)="imageCropped($event)"
+                                        (imageLoaded)="imageLoaded()"
+                                        (loadImageFailed)="loadImageFailed()"
+                                    ></image-cropper>
+                                </div>
+                                <div class="col-sm-6  preview-img ">
+                                    <img [src]="croppedImage"/>
+                                    <div>
+                                        <span *ngIf="showBtnSL" (click)="handleFileInput()" class="btn btn-danger mt10">Save image</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="fileImage">Background
+                            company</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="fileImage" (change)="fileChangeCompanyEvent($event)"/>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="hidden" formControlName="image_company">
+                                    <p class="error_message"
+                                       *ngIf="form.get('image_company').hasError('required') && submitPending">
+                                        Image company is required</p>
+                                    <image-cropper
+                                        [imageChangedEvent]="imageChangedCompanyEvent"
+                                        [maintainAspectRatio]="true"
+                                        [aspectRatio]="4 / 2"
+                                        [resizeToWidth]="256"
+                                        format="png, jpeg"
+                                        (imageCropped)="imageCroppedCompany($event)"
+                                        (imageLoaded)="imageLoaded()"
+                                        (loadImageFailed)="loadImageFailed()"
+                                    ></image-cropper>
+                                </div>
+                                <div class="col-sm-6  preview-img ">
+                                    <img [src]="croppedCompanyImage"/>
+                                    <div>
+                                        <span *ngIf="showCompanyI" (click)="handleFileInputCompany()"
+                                              class="btn btn-danger mt10">Save image</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="fileProd">Background products
+                            list</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="fileProd" (change)="fileChangeProductEvent($event)"/>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="hidden" formControlName="image_product_list">
+                                    <p class="error_message"
+                                       *ngIf="form.get('image_product_list').hasError('required') && submitPending">
+                                        Image product list is required</p>
+                                    <image-cropper
+                                        [imageChangedEvent]="imageChangedProductEvent"
+                                        [maintainAspectRatio]="false"
+                                        [resizeToWidth]="256"
+                                        format="png, jpeg"
+                                        (imageCropped)="imageCroppedProduct($event)"
+                                        (imageLoaded)="imageLoaded()"
+                                        (loadImageFailed)="loadImageFailed()"
+
+                                    ></image-cropper>
+                                </div>
+                                <div class="col-sm-6  preview-img ">
+                                    <img [src]="croppedProductImage"/>
+                                    <div>
+                                        <span *ngIf="showProdI" (click)="handleFileInputProduct()"
+                                              class="btn btn-danger mt10">Save image</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-danger btn-bordered margin-right" type="button"
+                                    [routerLink]="['/companies']">Cancel
+                            </button>
+                            <button type="submit"
+                                    class="btn btn-primary btn-bordered">Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

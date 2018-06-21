@@ -1,0 +1,209 @@
+<div class="wrapper-content">
+    <div class="table-wrapper">
+        <div class="wrap-header">
+            <h3>{{title}}</h3>
+        </div>
+        <div class="wrap-tmain">
+            <div class="table-scroll">
+                <div class="card">
+                    <div class="card-block" style="padding-bottom: 0">
+                        <table border="1">
+                            <thead>
+                            <tr class="ng2-smart-titles">
+                                <th class="ng2-smart-actions">
+                                    <div class="ng2-smart-title">Actions</div>
+                                </th>
+                                <th class="ng2-smart-th ">
+                                    <div class="ng2-smart-title">
+                                        #
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th">
+                                    <div class="ng2-smart-title">
+                                        Used by recipes
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th image">
+                                    <div class="ng2-smart-title">
+                                        Ingredient Image
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th name">
+                                    <div class="ng2-smart-title">
+                                        Ingredient Name
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th ">
+                                    <div class="ng2-smart-title">
+                                        Category
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th ">
+                                    <div class="ng2-smart-title">
+                                        Coupon
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th status">
+                                    <div class="ng2-smart-title">
+                                        Status
+                                    </div>
+                                </th>
+
+                            </tr>
+                            <tr class="ng2-smart-filters">
+                                <th class="ng2-smart-actions-title ng2-smart-actions-title-add">
+                                    <a routerLink="create" routerLinkActive="active"
+                                       class="btn btn-secondary" href="#">+ Add ingredient</a>
+                                </th>
+                                <th class="ng2-smart-th ">
+                                    <div class="ng2-smart-filter">
+
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th ">
+                                    <div class="ng2-smart-filter">
+
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th image">
+                                    <div class="ng2-smart-filter">
+
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th">
+                                    <div class="ng2-smart-filter">
+                                        <div class="ng2-smart-filter">
+                                            <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                   [(ngModel)]="searchName"
+                                                   (keyup.enter)="applyFilters($event)"
+                                                   type="text"
+                                                   placeholder="Name">
+                                        </div>
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th age">
+                                    <div class="ng2-smart-filter">
+                                        <select
+                                            class="form-control underline"
+                                            (change)="applyFilters($event)"
+                                            [(ngModel)]="catId">
+                                            <option *ngFor="let category of categoryOptionsSelect"
+                                                    [value]="category.value"
+                                                    (onClick)="applyFilters($event)">
+                                                {{ category.label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </th>
+
+                                <th class="ng2-smart-th age">
+                                    <div class="ng2-smart-filter">
+                                        <select
+                                            class="form-control underline"
+                                            (change)="applyFilters($event)"
+                                            [(ngModel)]="couponId">
+                                            <option *ngFor="let coupon of couponOptionsSelect"
+                                                    [value]="coupon.value"
+                                                    (onClick)="applyFilters($event)">
+                                                {{ coupon.label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </th>
+
+                                <th class="ng2-smart-th age">
+                                    <div class="ng2-smart-filter">
+                                        <select
+                                            class="form-control underline"
+                                            (change)="applyFilters($event)"
+                                            [(ngModel)]="searchStatus">
+                                            <option *ngFor="let status of statusOptionsSelect"
+                                                    [value]="status.value"
+                                                    (onClick)="applyFilters($event)">
+                                                {{ status.label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let ingredient of itemList; let i = index">
+                                <td>
+                                    <a [routerLink]="['update/' + ingredient.id]" *ngIf="ingredient.status == 1"
+                                       routerLinkActive="active" class="btn btn-info">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        edit</a>
+                                    <button *ngIf="ingredient.status == 1" [disabled]="ingredient.activeRecipeCount != '0'" title="This ingredient used in {{ingredient.activeRecipeCount}} recepies" class="btn btn-danger"
+                                          (click)="onDelete($event, content, ingredient)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                     delete</button>
+                                </td>
+                                <td>{{(i+1) + (page - 1) * selectedLimit}}</td>
+                                <td>{{ingredient.activeRecipeCount}}</td>
+                                <td>
+                                    <img *ngIf="ingredient.imageFile" src="{{ingredient.imageFile.path}}">
+                                </td>
+                                <td>{{ingredient.name_en}}</td>
+                                <td>{{ingredient.category.name_en}}</td>
+                                <td>
+                                    <img *ngIf="ingredient?.coupon?.image" src="{{ingredient?.coupon?.image.path}}">
+                                    <br>
+                                    {{ingredient?.coupon?.title_en}}
+                                    <br>
+                                    {{ingredient?.coupon?.start_date}} - {{ingredient?.coupon?.finish_date}}
+                                </td>
+                                <td>
+                                    <span class="active-status edit button"
+                                          *ngIf="ingredient.status == 1">Active</span>
+                                    <span class="deleted-status delete button"
+                                          *ngIf="ingredient.status == 3 ">Deleted</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page-select">
+                        <div class="col-sm-8">
+                            <select class="form-control" style="width: 200px;"
+                                    [(ngModel)]="selectedLimit"
+                                    (change)="onLimitSelected($event)">
+                                <option *ngFor="let item of limitOptionsSelect" [value]="item.value">
+                                    {{ item.label }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4" *ngIf="itemSize > selectedLimit">
+                            <ngb-pagination
+                                [collectionSize]="itemSize"
+                                [(page)]="page"
+                                (pageChange)="onPageChange($event)"
+                                [pageSize]="selectedLimit"
+                                [rotate]="true"
+                                [boundaryLinks]="true"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <i class="material-icons">clear</i>
+    </button>
+    <div class="modal-body delete-modal clearfix">
+        <p>Are you sure you want to delete the ingredient <b>«{{itemTitle}}»?</b></p>
+        <span>This action cannot be undone </span>
+        <p>
+            <button type="button" class="btn m-btn_no-bg margin-right" (click)="d('no')">Cancel</button>
+            <button type="button" class="btn btn-color" (click)="c('yes')">Delete it!</button>
+        </p>
+
+    </div>
+</ng-template>
+
+<template ngbModalContainer></template>

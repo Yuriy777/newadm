@@ -1,0 +1,119 @@
+<div class="wrapper-content">
+    <div class="table-wrapper">
+        <div class="wrap-header">
+            <h3>{{title}}</h3>
+        </div>
+        <div class="wrap-tmain">
+            <div class="table-scroll">
+                <div class="card">
+                    <div class="card-block" style="padding-bottom: 0">
+                        <table border="1">
+                            <thead>
+                            <tr class="ng2-smart-titles">
+                                <th class="ng2-smart-actions">
+                                    <div class="ng2-smart-title">Actions</div>
+                                </th>
+                                <th class="ng2-smart-th name">
+                                    <div class="ng2-smart-title">
+                                        Key
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th email">
+                                    <div class="ng2-smart-title">
+                                        En
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th regDate">
+                                    <div class="ng2-smart-title">
+                                        He
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th age">
+                                    <div class="ng2-smart-title">
+                                        Es
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="ng2-smart-filters">
+                                <th class="ng2-smart-actions-title ng2-smart-actions-title-add">
+
+                                </th>
+                                <th class="ng2-smart-th name">
+                                    <div class="ng2-smart-filter">
+                                        <input class="form-control ng-untouched ng-pristine ng-valid"
+                                               [(ngModel)]="searchKey"
+                                               (keyup.enter)="applyFilters($event)"
+                                               type="text"
+                                               placeholder="Name">
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th email">
+                                    <div class="ng2-smart-filter">
+                                        <input class="form-control ng-untouched ng-pristine ng-valid"
+                                               [(ngModel)]="searchNameEN"
+                                               (keyup.enter)="applyFilters($event)"
+                                               type="text"
+                                               placeholder="Name">
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th regDate">
+                                    <div class="ng2-smart-filter">
+                                        <input class="form-control ng-untouched ng-pristine ng-valid"
+                                               [(ngModel)]="searchNameHE"
+                                               (keyup.enter)="applyFilters($event)"
+                                               type="text"
+                                               placeholder="Name">
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th age">
+                                    <div class="ng2-smart-filter">
+                                        <input class="form-control ng-untouched ng-pristine ng-valid"
+                                               [(ngModel)]="searchNameES"
+                                               (keyup.enter)="applyFilters($event)"
+                                               type="text"
+                                               placeholder="Name">
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr *ngFor="let dictionary of itemList">
+                                <td>
+                                    <span [routerLink]="['update/' + dictionary.key]" routerLinkActive="active"
+                                          class="btn btn-info"><i class="fa fa-pencil"
+                                                                  aria-hidden="true"></i> edit</span>
+                                </td>
+                                <td>{{dictionary.key}}</td>
+                                <td>{{dictionary.en}}</td>
+                                <td>{{dictionary.he}}</td>
+                                <td>{{dictionary.es}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page-select">
+                        <div class="col-sm-8">
+                            <select class="form-control" style="width: 200px;"
+                                    [(ngModel)]="selectedLimit"
+                                    (change)="onLimitSelected($event)">
+                                <option *ngFor="let item of limitOptionsSelect" [value]="item.value">
+                                    {{ item.label }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4" *ngIf="itemSize > selectedLimit">
+                            <ngb-pagination
+                                    [collectionSize]="itemSize"
+                                    [(page)]="page"
+                                    (pageChange)="onPageChange($event)"
+                                    [pageSize]="selectedLimit"
+                                    [rotate]="true"
+                                    [boundaryLinks]="true"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+<div class="wrapper-content">
+    <div class="table-wrapper">
+        <div class="wrap-header">
+            <h3>{{title}}</h3>
+        </div>
+        <div class="wrap-tmain">
+            <div class="table-scroll">
+                <div class="card">
+                    <div class="card-block" style="padding-bottom: 0">
+                        <table border="1">
+                            <thead>
+                            <tr class="ng2-smart-titles">
+                                <th class="ng2-smart-actions">
+                                    <div class="ng2-smart-title">Actions</div>
+                                </th>
+                                <th class="ng2-smart-th name">
+                                    <div class="ng2-smart-title">
+                                        Full name
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th email">
+                                    <div class="ng2-smart-title">
+                                        Email
+                                    </div>
+                                </th>
+
+                                <th class="ng2-smart-th status">
+                                    <div class="ng2-smart-title">
+                                        Status
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th role">
+                                    <div class="ng2-smart-title">
+                                        Role
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="ng2-smart-filters">
+                                <th class="ng2-smart-actions-title ng2-smart-actions-title-add">
+                                    <a routerLink="/users/create" routerLinkActive="active"
+                                       class="btn btn-secondary" href="#">+ Add Users</a>
+                                </th>
+                                <th class="ng2-smart-th">
+                                    <div class="ng2-smart-filter">
+                                        <input class="form-control ng-untouched ng-pristine ng-valid"
+                                               [(ngModel)]="searchFullName"
+                                               (keyup.enter)="applyFilters($event)"
+                                               type="text"
+                                               placeholder="Name">
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th ">
+                                    <div class="ng2-smart-filter">
+                                        <input class="form-control ng-untouched ng-pristine ng-valid"
+                                               [(ngModel)]="searchEmail"
+                                               (keyup.enter)="applyFilters($event)"
+                                               type="text"
+                                               placeholder="Email">
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th">
+                                    <div class="ng2-smart-filter">
+                                        <select
+                                            class="form-control underline"
+                                            (change)="applyFilters($event)"
+                                            [(ngModel)]="searchStatus">
+                                            <option *ngFor="let status of statusOptionsSelect"
+                                                    [value]="status.value"
+                                                    (onClick)="applyFilters($event)">
+                                                {{ status.label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th">
+                                    <div class="ng2-smart-filter">
+                                        <select
+                                            class="form-control underline"
+                                            (change)="applyFilters($event)"
+                                            [(ngModel)]="searchRole">
+                                            <option *ngFor="let role of roleOptionsSelect"
+                                                    [value]="role.value"
+                                                    (onClick)="applyFilters($event)">
+                                                {{ role.label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let user of userList">
+                                <td>
+                                    <span *ngIf="user.status === 1" class="btn btn-danger"
+                                          (click)="onBlock($event, content, user)"><i
+                                        class="fa fa-trash"
+                                        aria-hidden="true"></i> block</span>
+                                </td>
+                                <td>{{user.firstName + ' ' + user.secondName}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{ getlabelByStatus(user.status) }}</td>
+                                <td>{{ getRoleLabelByRole(user.role) }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page-select">
+                        <div class="col-sm-8">
+                            <select class="form-control" style="width: 200px;"
+                                    [(ngModel)]="selectedLimit"
+                                    (change)="onLimitSelected($event)">
+                                <option *ngFor="let item of limitOptionsSelect" [value]="item.value">
+                                    {{ item.label }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4" *ngIf="userSize > selectedLimit">
+                            <ngb-pagination
+                                [collectionSize]="userSize"
+                                [(page)]="page"
+                                (pageChange)="onPageChange($event)"
+                                [pageSize]="selectedLimit"
+                                [rotate]="true"
+                                [boundaryLinks]="true"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <i class="material-icons">clear</i>
+    </button>
+    <div class="modal-body delete-modal clearfix">
+        <p>Are you sure you want to delete the user <b>«{{itemTitle}}»?</b></p>
+        <span>This action cannot be undone </span>
+
+        <button type="button" class="btn m-btn_no-bg margin-right" (click)="d('no')">Cancel</button>
+        <button type="button" class="btn btn-color" (click)="c('yes')">Delete it!</button>
+    </div>
+</ng-template>
+
+<template ngbModalContainer></template>

@@ -1,0 +1,124 @@
+<div class="table-wrapper">
+    <div class="wrap-header"></div>
+    <div class="wrap-tmain">
+        <div class="card">
+            <div class="card-header card-success card-inverse">
+                <span class="card-title">Update coupon</span>
+            </div>
+            <div class="card-block">
+                <form [formGroup]="couponForm" [ngClass]="{'form-error':submitPending }"
+                      (submit)="updateCoupon($event)" novalidate>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="title_en">Title (en)</label>
+                        <div class="col-sm-10">
+                            <div class="example-full-width">
+                                <input matInput class="form-control underline" id="title_en" formControlName="title_en">
+                                <div *ngIf="couponForm.get('title_en').hasError('required') && submitPending">
+                                    Title is <strong>required</strong>
+                                </div>
+                                <p class="error_message" *ngIf="isExistErrorByFormField('title_en')">
+                                    {{getTextErrorByFormField('title_en') }}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+
+                        <label class="col-sm-2 form-control-label text-xs-right" for="description_en">Description
+                            (en)</label>
+                        <div class="col-sm-10">
+                            <div class="example-full-width">
+                                <input id="description_en" class="form-control underline"
+                                       formControlName="description_en">
+                                <div *ngIf="couponForm.get('description_en').hasError('required') && submitPending">
+                                    Description is <strong>required</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="start_date">Start date</label>
+                        <div class="col-sm-10">
+                            <div class="example-full-width">
+                                <input class="form-control underline"
+                                       id="start_date"
+                                       bsDatepicker
+                                       [maxDate]="couponForm.get('finish_date').value"
+                                       [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY, hh:mm:ss'}"
+                                       name="start_date" formControlName="start_date">
+                                <div *ngIf="couponForm.get('start_date').hasError('required') && submitPending">
+                                    Start date is <strong>required</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="finish_date">Finish date</label>
+                        <div class="col-sm-10">
+                            <div class="example-full-width">
+                                <input id="finish_date"
+                                       class="form-control underline"
+                                       formControlName="finish_date"
+                                       [minDate]="couponForm.get('start_date').value"
+                                       [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+                                       bsDatepicker>
+                                <div *ngIf="couponForm.get('finish_date').hasError('required') && submitPending">
+                                    Finish date is <strong>required</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="file_id">Coupon image</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="file_id" (change)="fileChangeEvent($event)"/>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="hidden" formControlName="file_id">
+                                    <div *ngIf="couponForm.get('file_id').hasError('required')  && submitPending">
+                                        Image is <strong>required</strong>
+                                    </div>
+                                    <image-cropper
+                                            [imageChangedEvent]="imageChangedEvent"
+                                            [maintainAspectRatio]="true"
+                                            [aspectRatio]="1"
+                                            [resizeToWidth]="460"
+                                            format="png, jpeg"
+                                            (imageCropped)="imageCropped($event)"
+                                            (imageLoaded)="imageLoaded()"
+                                            (loadImageFailed)="loadImageFailed()"
+                                    ></image-cropper>
+                                </div>
+                                <div class="col-sm-6  preview-img ">
+                                    <img [src]="croppedImage"/>
+                                    <div>
+                                        <span *ngIf="showBtnSL" (click)="handleFileInput()" class="btn btn-danger mt10">Save image</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <span class="btn btn-danger btn-bordered margin-right"
+                                            [routerLink]="['/coupons']">Cancel
+                                    </span>
+                                    <button class="btn btn-primary btn-bordered" type="submit">
+                                        Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

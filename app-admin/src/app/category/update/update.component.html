@@ -1,0 +1,62 @@
+<div class="table-wrapper">
+    <div class="wrap-header"></div>
+    <div class="wrap-tmain">
+        <div class="card">
+            <div class="card-header card-success card-inverse">
+                <span class="card-title">Create category</span>
+            </div>
+            <div class="card-block">
+                <form [formGroup]="categoryForm" [ngClass]="{'form-error':submitPending }"
+                      (submit)="updateCategory($event)" novalidate>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="name_en">name_en</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" formControlName="name_en" id="name_en"
+                                   formControlName="name_en" type="text"
+                                   placeholder="Enter title">
+                            <p class="error_message"
+                               *ngIf="categoryForm.get('name_en').hasError('required') && submitPending">
+                                Name En is required</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('name_en')">{{
+                                getTextErrorByFormField('name_en') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="name_he">name_he</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="name_he" formControlName="name_he" type="text"
+                                   placeholder="Enter title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="name_es">name_es</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="name_es" formControlName="name_es" type="text"
+                                   placeholder="Enter title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="position">position</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" id="position" type="number" formControlName="position"
+                                   placeholder="Enter title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-danger btn-bordered margin-right" type="button"
+                                    [routerLink]="['/categories']">Cancel
+                            </button>
+                            <button class="btn btn-primary btn-bordered" type="submit"
+                            >Update
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

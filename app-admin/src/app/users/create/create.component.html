@@ -1,0 +1,105 @@
+<div class="table-wrapper">
+    <div class="wrap-header"></div>
+    <div class="wrap-tmain">
+        <div class="card">
+            <div class="card-header card-success card-inverse">
+                <span class="card-title">Create user</span>
+            </div>
+            <div class="card-block">
+                <form [formGroup]="form" [ngClass]="{'form-error':submitPending }" (ngSubmit)="create($event)"
+                      novalidate>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputFirstName">First Name</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" formControlName="first_name" id="inputFirstName"
+                                   placeholder="First Name" type="text">
+                            <p class="error_message"
+                               *ngIf="form.get('first_name').hasError('required') && submitPending">First Name is
+                                required</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('first_name')">{{
+                                getTextErrorByFormField('first_name') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputSecondName">Second
+                            Name</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" formControlName="second_name" id="inputSecondName"
+                                   placeholder="Second Name" type="text">
+                            <p class="error_message"
+                               *ngIf="form.get('second_name').hasError('required')  && submitPending">Second Name is
+                                required</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('second_name')">{{
+                                getTextErrorByFormField('second_name') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="inputEmail">Email</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" formControlName="email" id="inputEmail"
+                                   placeholder="Email" type="text">
+                            <p class="error_message" *ngIf="form.get('email').hasError('required') && submitPending">
+                                Email is required</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('email')">{{
+                                getTextErrorByFormField('email') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="username">User name</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" formControlName="username" id="username"
+                                   placeholder="User name" type="text">
+                            <p class="error_message" *ngIf="form.get('username').hasError('required') && submitPending">
+                                User name is required</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('username')">{{
+                                getTextErrorByFormField('username') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="password">Password</label>
+                        <div class="col-sm-10">
+                            <input class="form-control underline" type="password" formControlName="password"
+                                   id="password" placeholder="Password">
+                            <p class="error_message" *ngIf="form.get('password').hasError('required') && submitPending">
+                                Password is required</p>
+                            <p class="error_message" *ngIf="isExistErrorByFormField('password')">{{
+                                getTextErrorByFormField('password') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="selectCategory">Select
+                            role</label>
+                        <div class="col-sm-10">
+                            <div>
+                                <select id="selectCategory"
+                                        class="form-control underline"
+                                        formControlName="role">
+                                    <option
+                                        *ngFor="let role of roleOptionsSelect" [value]="role.value">
+                                        {{ role.label }}
+                                    </option>
+                                </select>
+
+                                <div *ngIf="form.get('role').hasError('required') && submitPending">
+                                    Role is <strong>required</strong>
+                                </div>
+                                <p class="error_message" *ngIf="isExistErrorByFormField('password')">{{
+                                    getTextErrorByFormField('password') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-danger btn-bordered margin-right" type="button"
+                                    [routerLink]="['/users']">Cancel
+                            </button>
+                            <button type="submit"
+                                    class="btn btn-primary btn-bordered">Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+RewriteBase /
+
+
+    # use mod_rewrite for pretty URL support
+    RewriteEngine on
+    # If a directory or a file exists, use the request directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # Otherwise forward the request to index.php
+    RewriteRule . index.php
+
+    # ...other settings...
+
+   # RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|Google.*snippet)
+   # RewriteRule ^(.*)$ social-networks.php?params=%{REQUEST_URI} [QSA,L]
+   # RewriteCond %{HTTP_USER_AGENT} (WhatsApp/[0-9])
+   # RewriteRule ^(.*)$ social-networks2.php?params=%{REQUEST_URI} [QSA,L]

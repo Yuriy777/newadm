@@ -1,0 +1,222 @@
+<div class="wrapper-content">
+    <div class="table-wrapper">
+        <div class="wrap-header">
+            <h3>{{title}}</h3>
+        </div>
+        <div class="wrap-tmain">
+            <div class="table-scroll">
+                <div class="card">
+                    <div class="card-block" style="padding-bottom: 0">
+                        <table border="1">
+                            <thead>
+                            <tr class="ng2-smart-titles">
+                                <th class="ng2-smart-actions">
+                                    <div class="ng2-smart-title">Actions</div>
+                                </th>
+                                <th class="ng2-smart-th name">
+                                    <div class="ng2-smart-title">
+                                        #
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th email">
+                                    <div class="ng2-smart-title">
+                                        Company
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th email">
+                                    <div class="ng2-smart-title">
+                                        Recipe Name
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th image">
+                                    <div class="ng2-smart-title">
+                                        Recipe Image
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th image">
+                                    <div class="ng2-smart-title">
+                                        NumberOfPeople
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th ">
+                                    <div class="ng2-smart-title">
+                                        RecipeLink
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th ">
+                                    <div class="ng2-smart-title">
+                                        RecipeLanguage
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th regDate">
+                                    <div class="ng2-smart-title">
+                                        Status
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="ng2-smart-filters">
+                                <th class="ng2-smart-actions-title ng2-smart-actions-title-add">
+                                    <a routerLink="create" routerLinkActive="active"
+                                       class="btn btn-secondary" href="#">+ Add recipe</a>
+                                </th>
+                                <th class="ng2-smart-th id">
+
+                                </th>
+                                <th class="ng2-smart-th company">
+                                    <div class="ng2-smart-filter">
+                                        <div class="ng2-smart-filter">
+                                            <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                   [(ngModel)]="searchCompanyName"
+                                                   (keyup.enter)="applyFilters($event)"
+                                                   type="text"
+                                                   placeholder="Company Name">
+                                        </div>
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th name">
+                                    <div class="ng2-smart-filter">
+                                        <div class="ng2-smart-filter">
+                                            <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                   [(ngModel)]="searchName"
+                                                   (keyup.enter)="applyFilters($event)"
+                                                   type="text"
+                                                   placeholder="Name">
+                                        </div>
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th image">
+
+                                </th>
+                                <th class="ng2-smart-th num-of-people">
+                                    <div class="ng2-smart-filter">
+                                        <div class="ng2-smart-filter">
+                                            <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                   [(ngModel)]="searchCountPeople"
+                                                   (keyup.enter)="applyFilters($event)"
+                                                   type="text"
+                                                   placeholder="Number">
+                                        </div>
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th recipe-link">
+                                    <div class="ng2-smart-filter">
+                                        <div class="ng2-smart-filter">
+                                            <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                   [(ngModel)]="searchLink"
+                                                   (keyup.enter)="applyFilters($event)"
+                                                   type="text"
+                                                   placeholder="Link">
+                                        </div>
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th RecipeLanguage">
+                                    <div class="ng2-smart-filter">
+                                        <select
+                                            class="form-control underline"
+                                            (change)="applyFilters($event)"
+                                            [(ngModel)]="searchLanguage">
+                                            <option *ngFor="let language of languageOptionsSelect"
+                                                    [value]="language.value"
+                                                    (onClick)="applyFilters($event)">
+                                                {{ language.label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </th>
+                                <th class="ng2-smart-th regDate">
+                                    <div class="ng2-smart-filter">
+                                        <select
+                                            class="form-control underline"
+                                            (change)="applyFilters($event)"
+                                            [(ngModel)]="searchStatus">
+                                            <option *ngFor="let status of statusOptionsSelect"
+                                                    [value]="status.value"
+                                                    (onClick)="applyFilters($event)">
+                                                {{ status.label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let recipe of itemList; let i = index">
+                                <td class="text-row">
+                                    <a [routerLink]="['update/' + recipe.id]"
+                                       *ngIf="recipe.status == 1 || recipe.status == 4" routerLinkActive="active"
+                                       class="btn btn-info">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        edit</a>
+
+                                    <span *ngIf="recipe.status == 4" class="btn btn-success"
+                                          (click)="onPublish($event, recipe.id)">
+                                    <i class="fa fa-share-square-o" aria-hidden="true"></i>
+                                    publish</span>
+                                    <span *ngIf="recipe.status == 4" class="btn btn-danger"
+                                          (click)="onDelete($event, content, recipe )">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    delete</span>
+                                </td>
+                                <td>{{(i+1) + (page - 1) * selectedLimit}}</td>
+                                <td>{{recipe?.company?.name_en}}</td>
+                                <td>{{recipe.name_en}}</td>
+                                <td>
+                                    <a *ngIf="recipe.status == 1" href="{{recipe.recipeUrl}}"  target="_blank">link</a>
+                                    <img *ngIf="recipe.image" src="{{recipe.image.path}}">
+                                </td>
+                                <td>{{recipe.people_amount}}</td>
+                                <td>{{recipe.slug}}</td>
+                                <td>{{recipe.language}}</td>
+                                <td>
+                                    <span class="active-status edit button" *ngIf="recipe.status == 1">Published</span>
+                                    <span class="active-status edit button"
+                                          *ngIf="recipe.status == 4">Pending publish</span>
+                                    <span class="deleted-status delete button"
+                                          *ngIf="recipe.status == 3 ">Deleted</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="page-select">
+                        <div class="col-sm-8">
+                            <select class="form-control" style="width: 200px;"
+                                    [(ngModel)]="selectedLimit"
+                                    (change)="onLimitSelected($event)">
+                                <option *ngFor="let item of limitOptionsSelect" [value]="item.value">
+                                    {{ item.label }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4" *ngIf="itemSize > selectedLimit">
+                            <ngb-pagination
+                                [collectionSize]="itemSize"
+                                [(page)]="page"
+                                (pageChange)="onPageChange($event)"
+                                [pageSize]="selectedLimit"
+                                [rotate]="true"
+                                [boundaryLinks]="true"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <i class="material-icons">clear</i>
+    </button>
+    <div class="modal-body delete-modal clearfix">
+        <p>Are you sure you want to delete the recipe <b>«{{itemTitle}}»?</b></p>
+        <span>This action cannot be undone </span>
+
+        <button type="button" class="btn m-btn_no-bg margin-right" (click)="d('no')">Cancel</button>
+        <button type="button" class="btn btn-color" (click)="c('yes')">Delete it!</button>
+    </div>
+</ng-template>
+
+<template ngbModalContainer></template>

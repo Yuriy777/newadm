@@ -1,0 +1,193 @@
+<div class="table-wrapper">
+    <div class="wrap-header"></div>
+    <div class="wrap-tmain">
+        <div class="card">
+            <div class="card-header card-success card-inverse">
+                <span class="card-title">Create ingredient</span>
+            </div>
+            <div class="card-block">
+                <form [formGroup]="ingredientForm" [ngClass]="{'form-error':submitPending }"
+                      (submit)="createIngredient($event)" novalidate>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="name_en">Name (en)</label>
+                        <div class="col-sm-10">
+                            <div class="example-full-width">
+                                <input matInput class="form-control underline" id="name_en" formControlName="name_en">
+                                <div
+                                    *ngIf="ingredientForm.get('name_en').hasError('required') && submitPending">
+                                    Name is <strong>required</strong>
+                                </div>
+                                <p class="error_message" *ngIf="isExistErrorByFormField('name_en')">{{
+                                    getTextErrorByFormField('name_en') }}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="name_he">Name (he)</label>
+                        <div class="col-sm-10">
+                            <div class="example-full-width">
+                                <input id="name_he" class="form-control underline" formControlName="name_he">
+                                <div *ngIf="ingredientForm.get('name_he').hasError('required') && submitPending">
+                                    Name is <strong>required</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="name_es">Name (es)</label>
+                        <div class="col-sm-10">
+                            <div class="example-full-width">
+                                <input id="name_es" class="form-control underline" formControlName="name_es">
+
+                                <div *ngIf="ingredientForm.get('name_es').hasError('required') && submitPending">
+                                    Name is <strong>required</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="selectCategory">Select
+                            category</label>
+                        <div class="col-sm-10">
+                            <div>
+                                <select id="selectCategory"
+                                        class="form-control underline"
+                                        formControlName="category_id">
+                                    <option
+                                        *ngFor="let category of categoriesOptionsSelect" [value]="category.value">
+                                        {{ category.label }}
+                                    </option>
+                                </select>
+
+                                <div *ngIf="ingredientForm.get('category_id').hasError('required') && submitPending">
+                                    Category is <strong>required</strong>
+                                </div>
+                                <p class="error_message" *ngIf="isExistErrorByFormField('category_id')">{{
+                                    getTextErrorByFormField('category_id') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="selectCoupon">Select
+                            coupon</label>
+                        <div class="col-sm-10">
+                            <div>
+                                <select id="selectCoupon"
+                                        class="form-control underline"
+                                        formControlName="category_id">
+                                    <option
+                                        *ngFor="let coupon of couponsOptionsSelect" [value]="coupon.value">
+                                        {{ coupon.label }}
+                                    </option>
+                                </select>
+                                <p class="error_message" *ngIf="isExistErrorByFormField('coupon_id')">{{
+                                    getTextErrorByFormField('coupon_id') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb10">
+                        <div class="col-sm-12">
+                            <div class="limit-wrapper row clearfix" formArrayName="parts">
+                                <label class="col-sm-2 form-control-label text-xs-right">Parts</label>
+                                <div class="col-sm-10">
+                                    <div class=""
+                                         *ngFor="let limit of ingredientForm.controls.parts.controls; let i=index">
+                                        <div class=" col-sm-12">
+                                            <div class="select-container" [formGroupName]="i">
+                                                <div class="field fourth-width row mb10">
+                                                    <div class="field half-width row ">
+                                                        <div class="example-full-width col-sm-4">
+                                                            <input currencyMask [options]="{prefix:''}" class="form-control underline"
+                                                                   formControlName="part">
+                                                            <div
+                                                                *ngIf="ingredientForm.get('parts').hasError('required')  && submitPending">
+                                                                Unit is <strong>required</strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <select
+                                                                formControlName="unit_id"
+                                                                class="form-control underline">
+                                                                <option value="" disabled selected>Select unit</option>
+                                                                <option
+                                                                    *ngFor="let unit of unitsOptionsSelect"
+                                                                    [value]="unit.value">
+                                                                    {{ unit.label }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <button [disabled]="parts.length == 1"
+                                                            (click)="deletePart($event, i)"
+                                                            class="btn btn-danger btn-bordered col-sm-2"
+                                                        >remove
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="col-sm-offset-2  col-sm-10">
+                                        <button class="btn btn-info btn-rounded" (click)="addPart($event)">Add new
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right" for="fileImg">Ingredient image</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="fileImg" (change)="fileChangeEvent($event)"/>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="hidden" formControlName="image">
+                                    <div *ngIf="ingredientForm.get('image').hasError('required')  && submitPending">
+                                        Image is <strong>required</strong>
+                                    </div>
+                                    <image-cropper
+                                        [imageChangedEvent]="imageChangedEvent"
+                                        [maintainAspectRatio]="true"
+                                        [aspectRatio]="1"
+                                        [resizeToWidth]="256"
+                                        format="png, jpeg"
+                                        (imageCropped)="imageCropped($event)"
+                                        (imageLoaded)="imageLoaded()"
+                                        (loadImageFailed)="loadImageFailed()"
+                                    ></image-cropper>
+                                </div>
+                                <div class="col-sm-6  preview-img ">
+                                    <img [src]="croppedImage"/>
+                                    <div>
+                                        <span *ngIf="showBtnSL" (click)="handleFileInput()" class="btn btn-danger mt10">Save image</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button class="btn btn-danger btn-bordered margin-right"
+                                            [routerLink]="['/ingredients']">Cancel
+                                    </button>
+                                    <button class="btn btn-primary btn-bordered" type="submit"
+                                    >Create
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

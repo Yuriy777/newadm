@@ -1,0 +1,97 @@
+<div class="topbar">
+    <!-- LOGO -->
+
+    <!-- Button mobile view to collapse sidebar menu -->
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluide">
+            <div class="">
+
+                <ul class="nav navbar-nav navbar-right navbar-right-top pull-right">
+                    <li class="hidden-xs">
+                        <a (click)="logout($event)" id="btn-fullscreen" class="waves-effect waves-light"><i
+                            class="fa fa-external-link"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown"
+                           aria-expanded="true">
+                            <img src="js/ng/assets/images/users/no-image.png" alt="user-img" class="img-circle">
+                            Admin
+                        </a>
+                    </li>
+
+                    <li class="log-out">
+                        <a href="/site/logout" class="waves-effect" title="Log Out"><i
+                            class="icon-logout"></i><span></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="left side-menu">
+    <div class="slimScrollDiv">
+        <div class="sidebar-inner slimscrollleft">
+            <div class="sidebar-header">
+                <img src="/images/crazy-sob-logo.png"
+                     style="width: 70px" alt="Crazy Sob">
+                Crazy-SOB
+            </div>
+            <!--- Divider -->
+            <div id="sidebar-menu">
+                <ul class="navigation">
+                    <li>
+                        <a routerLink="/users" class="waves-effect" routerLinkActive="active">
+                            <i class="fa fa-users"></i>
+                            <span> Users </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/companies" class="waves-effect" routerLinkActive="active">
+                            <i class="fa fa-building-o"></i>
+                            <span> Companies </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/categories" class="waves-effect" routerLinkActive="active">
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span> Categories </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/units" class="waves-effect" routerLinkActive="active">
+                            <i class="fa fa-window-restore"></i>
+                            <span> Units </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/ingredients" class="waves-effect" routerLinkActive="active">
+                            <i class="fa fa-shopping-basket"></i>
+                            <span> Ingredients </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/recipes" class="waves-effect" routerLinkActive="active">
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span> Recipes </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/dictionaries" class="waves-effect" routerLinkActive="active">
+                            <i class="fa fa-list"></i>
+                            <span> Dictionaries </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/coupons" class="waves-effect" routerLinkActive="active">
+                            <i class="fa fa-gift"></i>
+                            <span> Coupons </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
